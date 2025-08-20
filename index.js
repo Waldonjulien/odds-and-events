@@ -1,17 +1,39 @@
-const formContainer = document.getElementById("app");
+const bank = [];
+const odds = [];
+const evens = [];
 
 const form = document.createElement("form");
-form.setAttribute("label", "bank-form");
-form.appendChild(form);
+form.innerHTML = `Add a number to the bank: <input type="number" id="numberInput" required>
+<button type="submit">Add</button>
+<button type="submit">Sort1</button>
+<button type="submit">SortAll</button>
+`;
+form.addEventListener("submit", (event) => {
+  event.preventDefualt();
+});
 
-formContainer.appendChild(form);
+function addToBank(number) {
+  bank.push(number);
+  render();
+}
 
-const bankLabel = document.createElement("label");
-bankLabel.textContent = "Bank:";
-form.appendChild(bankLabel);
+function sort1(number) {
+  if (number % 2 === 0) {
+    evens.push(number);
+  } else if (number % 2 !== 0) {
+    odds.push(number);
+  }
 
-const oddsLabel = document.createElement("label");
-oddsLabel.textContent = "Odds:";
-form.appendChild(oddsLabel);
+  render();
+}
 
-renderformContainer(form);
+function sortAll() {
+  bank.forEach((number) => {
+    if (number % 2 === 0) {
+      evens.push(number);
+    } else {
+      odds.push(number);
+    }
+    render();
+  });
+}
